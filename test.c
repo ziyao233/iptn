@@ -1,7 +1,7 @@
 /*
 	iptn
 	File:/test.c
-	Date:2021.10.04
+	Date:2021.10.05
 	For __ONLY__ x86-64.
 	By MIT License.
 	Copyright (c) 2021 Suote127.All rights reserved.
@@ -12,7 +12,7 @@
 
 #include"iptn.h"
 
-iptn_define(add,7)
+iptn_define(add)
 	0x48,0x89,0xf8,			// mov	%rdi,	%rax
 	0x48,0xff,0xc0,			// inc	%rax
 	0xc3				// retq
@@ -23,7 +23,7 @@ int main(void)
 	Iptn_State state;
 	iptn_init(state,4096);
 
-	iptn_emit(state,iptn_label(add),7);
+	iptn_emitlabel(state,add);
 
 	iptn_spawn(state);
 

@@ -4,6 +4,7 @@
 	A simple dynamic code generate tool.
 	By MIT License.
 	Copyright (c) 2021 Suote127.All rights reserved.
+	Date:2021.10.05
 	https://gitee.com/suote_127/iptn
 */
 
@@ -46,6 +47,9 @@ typedef struct {
 #define iptn_emit64(state,p) iptn_emit(state,p,8)
 #define iptn_emit48(state,p) iptn_emit(state,p,6)
 #define iptn_emit128(state,p) iptn_emit(state,p,16)
+#define iptn_emitvar(state,var) iptn_emit(state,&(var),sizeof(var))
+#define iptn_emitlabel(state,label) iptn_emitvar(state,			\
+						 __iptnCodeDefine_##label)
 
 #define iptn_spawn(state) (void)mprotect((state).code,(state).size,	\
 					 PROT_EXEC | PROT_READ)
@@ -58,7 +62,7 @@ typedef struct {
 
 #define iptn_emitp(target,p,size) memcpy((target),(p),(size))
 
-#define iptn_define(label,size) const static uint8_t __iptnCodeDefine_##label[size] = {
+#define iptn_define(label) const static uint8_t __iptnCodeDefine_##label[] = {
 #define iptn_end };
 #define iptn_label(label) &__iptnCodeDefine_##label
 
