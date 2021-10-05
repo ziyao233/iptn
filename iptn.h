@@ -41,6 +41,8 @@ typedef struct {
 		(state).now	+= (size);				\
 	} while(0)
 
+#define iptn_now(state) ((state).p)
+
 #define iptn_emit8(state,p) iptn_emit(state,p,1)
 #define iptn_emit16(state,p) iptn_emit(state,p,2)
 #define iptn_emit32(state,p) iptn_emit(state,p,4)
